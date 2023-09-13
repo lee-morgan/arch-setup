@@ -5,21 +5,17 @@
 echo n
 echo 1
 echo
-echo
 echo '+550M'
 echo n
 echo 2
-echo 
 echo 
 echo '+2G'
 echo n
 echo 3
 echo
-echo
 echo '+20G' 
 echo n
 echo 4
-echo 
 echo 
 echo 
 echo t
