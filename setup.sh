@@ -30,10 +30,17 @@ mount --mkdir /dev/"$disk"4 /mnt/home
 ### Enable the SWAP partition
 swapon /dev/"$disk"2 
 
+# Install required packages
 pacstrap -K /mnt base linux linux-firmware networkmanager nano sudo
+
+# Create the file table
 genfstab -U /mnt >> /mnt/etc/fstab
 
-arch-chroot /mnt
+# Copy the remaining scripts to a temporary directory
+mkdir /mnt/archinstall 
+cp config.sh /mnt/archinstall/
+
+arch-chroot /mnt ./archinstall/config.sh
 
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 hwclock –systohc
