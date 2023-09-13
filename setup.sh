@@ -27,7 +27,7 @@ mkfs.ext4 /dev/"$disk"4 # /home
 
 read -p 'Pause...' t
 ### Mount the partitions
-mount /dev/$(disk)3 /mnt
+mount /dev/"$disk"3 /mnt
 mount --mkdir /dev/"$disk"1 /mnt/boot
 mount --mkdir /dev/"$disk"4 /mnt/home
 read -p 'Pause...' t
