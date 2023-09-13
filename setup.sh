@@ -17,22 +17,22 @@ echo t; echo 2; echo 19
 echo w) | fdisk /dev/$disk
 
 ### Format the partitions 
-mkfs.fat -F32 /dev/$(disk)1 # EFI
+mkfs.fat -F32 /dev/"$disk"1 # EFI
 read -p 'Pause...' t
-mkswap /dev/$(disk)2 # SWAP 
+mkswap /dev/"$disk"2 # SWAP 
 read -p 'Pause...' t
-mkfs.ext4 /dev/$(disk)3 # /
+mkfs.ext4 /dev/"$disk"3 # /
 read -p 'Pause...' t
-mkfs.ext4 /dev/$(disk)4 # /home
+mkfs.ext4 /dev/"$disk"4 # /home
 
 read -p 'Pause...' t
 ### Mount the partitions
 mount /dev/$(disk)3 /mnt
-mount --mkdir /dev/$(disk)1 /mnt/boot
-mount --mkdir /dev/$(disk)4 /mnt/home
+mount --mkdir /dev/"$disk"1 /mnt/boot
+mount --mkdir /dev/"$disk"4 /mnt/home
 read -p 'Pause...' t
 ### Enable the SWAP partition
-swapon /dev/$(disk)2 
+swapon /dev/"$disk"2 
 read -p 'Pause...' t
 pacstrap -K /mnt base linux linux-firmware networkmanager nano sudo
 genfstab -U /mnt >> /mnt/etc/fstab
