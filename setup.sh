@@ -5,11 +5,11 @@ timedatectl set-ntp true
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###             Creating partitions             ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###             Creating partitions             ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 lsblk | grep disk | awk '{print $1}'
 read -p 'Enter the disk name: ' disk
@@ -30,11 +30,11 @@ read -p 'Enter the disk name: ' disk
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###            Formatting partitions            ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###            Formatting partitions            ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 mkfs.fat -F32 /dev/"$disk"1 # EFI
 mkswap /dev/"$disk"2 # SWAP 
@@ -44,11 +44,11 @@ mkfs.ext4 /dev/"$disk"4 # /home
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###             Mounting partitions             ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###             Mounting partitions             ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 mount /dev/"$disk"3 /mnt
 mount --mkdir /dev/"$disk"1 /mnt/boot
@@ -58,11 +58,11 @@ swapon /dev/"$disk"2
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###            Patching pacman.conf             ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###            Patching pacman.conf             ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 ### Not really required.
 ### just thought it may look nice. :-)
@@ -71,33 +71,33 @@ sed -i 's/#Color/Color/g' /etc/pacman.conf
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###           Installing base packages          ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###           Installing base packages          ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 pacstrap -K /mnt base linux linux-firmware base-devel git intel-ucode linux-headers reflector nano openssh awk
 ###-----------------------------------------------------------------------------------------------------------
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###             Creating file table             ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###             Creating file table             ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 genfstab -U /mnt >> /mnt/etc/fstab
 ###-------------------------------
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###       Copying scripts to base system        ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###       Copying scripts to base system        ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 mkdir /mnt/archinstaller
 cp configure.sh /mnt/archinstaller/
@@ -108,10 +108,10 @@ cp required-services /mnt/archinstaller/
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###           chroot into base system           ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###           chroot into base system           ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 arch-chroot /mnt ./archinstaller/configure.sh
