@@ -11,7 +11,7 @@ echo
 ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
 hwclock --systohc
 ###------------------------------------------------
-
+read -p 'Pause... ' pause
 
 clear
 echo "###-------------------------------###"
@@ -91,7 +91,7 @@ git clone https://aur.archlinux.org/yay-git.git
 cd yay-git
 makepkg -si
 yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
-
+read -p 'Pause... ' pause
 #clear
 echo "###-------------------------------------###"
 echo "### Continue the rest of the setup here ###"
