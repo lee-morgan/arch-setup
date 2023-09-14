@@ -3,18 +3,33 @@
 zoneinfo="Europe/London"
 username="lee"
 
-### Set zoneinfo and time
-ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
-hwclock -–systohc
+clear
+echo "###-----------------------###"
+echo "### Configuring timezones ###"
+echo "###-----------------------###"
 
-### Create and Patch locales
+ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
+hwclock --systohc
+###------------------------------------------------
+
+
+clear
+echo "###-------------------------------###"
+echo "### Creating and Patching locales ###"
+echo "###-------------------------------###"
+
 sed -i 's/#en_gb.UTF/en_GB.UTF/' /etc/locale.gen
 locale-gen
 echo "LANG=en_GB.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=uk"  >> /etc/vconsole.conf
 localectl set-x11-keymap gb
+###----------------------------------------------
 
-### Set the hostname
+clear
+echo "###--------------------------------###"
+echo "### Configuring hostname and hosts ###"
+echo "###--------------------------------###"
+
 read -p 'Please enter a hostname for this device: ' hostname
 echo $hostname >> /etc/hostname
 
@@ -23,25 +38,46 @@ echo -e "127.0.0.1\tlocalhost" >> /etc/hosts
 echo -e "::1\t\tlocalhost" >> /etc/hosts
 echo -e "127.0.1.1\t$hostname.local\t$hostname" >> /etc/hosts
 
-### Set the password for the root user
+clear
+echo "###-----------------------------###"
+echo "### Setting up users and groups ###"
+echo -e "###-----------------------------###\n"
+
+echo "Please enter a password for the root account: "
 passwd 
 
-### Create user account
 useradd -m $username 
+echo "Please enter a password for the '$username' account: "
 passwd $username 
-
-### Add User to groups
 usermod -aG wheel,audio,video,optical,storage $username 
+###---------------------------------------------------------
 
-### Update reflector
+clear
+echo "###----------------------------------###"
+echo "### Update the mirrorlist for pacman ###"
+echo "###----------------------------------###"
+
 reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
-### Update pacman
+clear
+echo "###---------------------------------###"
+echo "### Update package cache for pacman ###"
+echo "###---------------------------------###"
+
 pacman -Syy 
+###-------------------------------------------
 
-### Install other packages
+clear
+echo "###---------------------------###"
+echo "### Install required packages ###"
+echo "###---------------------------###"
+
 pacman --noconfirm -S $(awk '{print $1}' required-packages-pacman)
+###---------------------------------------------------------------
 
-### Setup yay
+clear
+echo "###---------------------------------------------###"
+echo "### Setup yay and install required AUR packages ###"
+echo "###---------------------------------------------###"
 
-yay -Q $(awk '{print $1}' required-packages-yay)
+yay --noconfirm -S $(awk '{print $1}' required-packages-yay)
