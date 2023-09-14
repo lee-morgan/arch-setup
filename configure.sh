@@ -111,7 +111,6 @@ echo "  ###---------------------------------------------###"
 echo
 
 sudo -i -u $username bash << EOF 
-username = $(whoami)
 mkdir -p /home/$username/repos
 sleep 3
 cd /home/$username/repos
