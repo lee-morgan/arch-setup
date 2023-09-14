@@ -7,7 +7,6 @@ blueman
 bluez 
 bluez-utils 
 brightnessctl 
-brillo 
 cliphist 
 dunst 
 evtest 
@@ -40,7 +39,6 @@ qt6-wayland
 ranger 
 sddm 
 slurp 
-spotify 
 starship 
 swayidle 
 sxiv 
@@ -51,7 +49,6 @@ ttf-font-awesome
 ttf-fira-sans 
 ttf-fira-code 
 ttf-firacode-nerd 
-tty-clock 
 usbutils 
 xdg-user-dirs 
 xdg-utils 
