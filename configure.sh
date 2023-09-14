@@ -111,10 +111,13 @@ echo " ###---------------------------------------------###"
 echo
 
 sudo -i -u $username bash << EOF 
-mkdir -p /home/$(whoami)/repos
-cd /home/$(whoami)/repos
-git clone https://aur.archlinux.org/yay-git.git 
-cd yay-git
+mkdir -p $HOME/repos
+sleep 3
+cd $HOME/repos
+sleep 3
+git clone https://aur.archlinux.org/yay.git 
+cd $HOME/repos/yay
+sleep 3
 makepkg -si 
 EOF
 #yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
