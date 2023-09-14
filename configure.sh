@@ -66,7 +66,8 @@ echo "###----------------------###"
 echo
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 ###-------------------------------------------
-
+cat /archinstaller/required-packages-yay
+read -p 'Pause... ' pause
 #clear
 echo "###---------------------------------###"
 echo "### Update package cache for pacman ###"
