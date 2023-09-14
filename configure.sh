@@ -116,6 +116,8 @@ mkdir repos
 cd repos
 git clone https://aur.archlinux.org/yay-git.git 
 cd /yay-git
+echo $PWD
+read -p 'Pause... ' pause
 makepkg -si 
 EOF
 #yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
@@ -125,7 +127,7 @@ cat /archinstaller/required-packages-yay | tr '\n' ' ' | xargs yay --noconfirm -
 echo
 echo " ###---------------------------------------------###"
 echo " ###                                             ###"
-echo " ###    Setting up root and $username password   ###"
+echo " ###      Setting up root and user passwords     ###"
 echo " ###                                             ###"
 echo " ###---------------------------------------------###"
 echo
