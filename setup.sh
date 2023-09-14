@@ -7,6 +7,7 @@ clear
 echo "###---------------------###"
 echo "### Creating partitions ###"
 echo "###---------------------###"
+echo
 lsblk | grep disk | awk '{print $1}'
 read -p 'Enter the disk name: ' disk
 
@@ -28,7 +29,7 @@ clear
 echo "###-----------------------###"
 echo "### Formatting partitions ###"
 echo "###-----------------------###"
-
+echo
 mkfs.fat -F32 /dev/"$disk"1 # EFI
 mkswap /dev/"$disk"2 # SWAP 
 mkfs.ext4 /dev/"$disk"3 # /
@@ -39,7 +40,7 @@ clear
 echo "###---------------------###"
 echo "### Mounting partitions ###"
 echo "###---------------------###"
-
+echo
 mount /dev/"$disk"3 /mnt
 mount --mkdir /dev/"$disk"1 /mnt/boot
 mount --mkdir /dev/"$disk"4 /mnt/home
@@ -50,6 +51,7 @@ clear
 echo "###----------------------###"
 echo "### Patching pacman.conf ###"
 echo "###----------------------###"
+echo
 ### Not really required.
 ### just thought it may look nice. :-)
 sed -i 's/#Color/Color/g' /etc/pacman.conf
@@ -59,7 +61,7 @@ clear
 echo "###--------------------------###"
 echo "### Installing base packages ###"
 echo "###--------------------------###"
-
+echo
 pacstrap -K /mnt base linux linux-firmware base-devel git intel-ucode linux-headers reflector nano openssh awk
 ###-----------------------------------------------------------------------------------------------------------
 
@@ -67,7 +69,7 @@ clear
 echo "###---------------------###"
 echo "### Creating file table ###"
 echo "###---------------------###"
-
+echo
 genfstab -U /mnt >> /mnt/etc/fstab
 ###-------------------------------
 
@@ -75,7 +77,7 @@ clear
 echo "###--------------------------------###"
 echo "### Copying scripts to base system ###"
 echo "###--------------------------------###"
-
+echo
 mkdir /mnt/archinstaller
 cp configure.sh /mnt/archinstaller/
 cp required-packages-packman /mnt/archinstaller/
@@ -87,5 +89,5 @@ clear
 echo "###-------------------------###"
 echo "### chroot into base system ###"
 echo "###-------------------------###"
-
+echo
 arch-chroot /mnt ./archinstaller/configure.sh
