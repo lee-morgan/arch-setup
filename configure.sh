@@ -79,7 +79,7 @@ echo "###---------------------------###"
 echo "### Install required packages ###"
 echo "###---------------------------###"
 
-pacman --noconfirm -S $(awk '{print $1}' required-packages-pacman)
+pacman --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-pacman)
 ###---------------------------------------------------------------
 
 clear
@@ -87,4 +87,4 @@ echo "###---------------------------------------------###"
 echo "### Setup yay and install required AUR packages ###"
 echo "###---------------------------------------------###"
 
-yay --noconfirm -S $(awk '{print $1}' required-packages-yay)
+yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
