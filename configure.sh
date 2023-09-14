@@ -111,10 +111,12 @@ echo " ###                                             ###"
 echo " ###---------------------------------------------###"
 echo
 git clone https://aur.archlinux.org/yay-git.git 
-cd yay-git
-makepkg -si
+cd yay-git 
+su $username
+makepkg -si 
+su
 yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
-read -p 'Pause... ' pause
+
 clear
 echo
 echo " ###---------------------------------------------###"
@@ -125,7 +127,7 @@ echo " ###---------------------------------------------###"
 echo
 echo "Please enter a password for the root account: "
 passwd 
-
+read -p 'Pause... ' pause
 #clear
 echo
 echo " ###---------------------------------------------###"
