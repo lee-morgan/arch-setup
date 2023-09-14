@@ -97,7 +97,8 @@ echo " ###        Installing required packages         ###"
 echo " ###                                             ###"
 echo " ###---------------------------------------------###"
 echo
-pacman --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-pacman)
+#pacman --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-pacman)
+cat /archinstaller/required-packages-pacman | tr '\n' ' ' | xargs pacman --noconfirm -S
 ###---------------------------------------------------------------
 
 #clear
@@ -117,7 +118,8 @@ git clone https://aur.archlinux.org/yay-git.git
 cd /yay-git
 makepkg -si 
 EOF
-yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
+#yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
+cat /archinstaller/required-packages-yay | tr '\n' ' ' | xargs yay --noconfirm -S
 
 #clear
 echo
