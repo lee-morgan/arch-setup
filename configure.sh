@@ -68,7 +68,7 @@ echo " ###      Updating the mirrorlist for pacman     ###"
 echo " ###                                             ###"
 echo " ###---------------------------------------------###"
 echo
-reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+#reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 clear
 echo
@@ -112,9 +112,10 @@ echo " ###---------------------------------------------###"
 echo
 git clone https://aur.archlinux.org/yay-git.git 
 cd yay-git 
-su $username
+sudo -i -u $username bash << EOF
+cd /yay-git
 makepkg -si 
-su
+EOF
 yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
 
 #clear
