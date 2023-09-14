@@ -4,9 +4,9 @@ loadkeys uk
 timedatectl set-ntp true
 
 clear
-echo ###---------------------###
-echo ### Creating partitions ###
-echo ###---------------------###
+echo "###---------------------###"
+echo "### Creating partitions ###"
+echo "###---------------------###"
 lsblk | grep disk | awk '{print $1}'
 read -p 'Enter the disk name: ' disk
 
@@ -25,9 +25,9 @@ echo w) | fdisk /dev/$disk
 ###---------------------------------
 
 clear
-echo ###-----------------------###
-echo ### Formatting partitions ###
-echo ###-----------------------###
+echo "###-----------------------###"
+echo "### Formatting partitions ###"
+echo "###-----------------------###"
 
 mkfs.fat -F32 /dev/"$disk"1 # EFI
 mkswap /dev/"$disk"2 # SWAP 
@@ -36,9 +36,9 @@ mkfs.ext4 /dev/"$disk"4 # /home
 ###-------------------------------
 
 clear
-echo ###---------------------###
-echo ### Mounting partitions ###
-echo ###---------------------###
+echo "###---------------------###"
+echo "### Mounting partitions ###"
+echo "###---------------------###"
 
 mount /dev/"$disk"3 /mnt
 mount --mkdir /dev/"$disk"1 /mnt/boot
@@ -47,25 +47,25 @@ swapon /dev/"$disk"2
 ###-----------------------------------
 
 clear
-echo ###--------------------------###
-echo ### Installing base packages ###
-echo ###--------------------------###
+echo "###--------------------------###"
+echo "### Installing base packages ###"
+echo "###--------------------------###"
 
 pacstrap -K /mnt base linux linux-firmware base-devel git intel-ucode linux-headers reflector nano openssh awk
 ###-----------------------------------------------------------------------------------------------------------
 
 clear
-echo ###---------------------###
-echo ### Creating file table ###
-echo ###---------------------###
+echo "###---------------------###"
+echo "### Creating file table ###"
+echo "###---------------------###"
 
 genfstab -U /mnt >> /mnt/etc/fstab
 ###-------------------------------
 
 clear
-echo ###--------------------------------###
-echo ### Copying scripts to base system ###
-echo ###--------------------------------###
+echo "###--------------------------------###"
+echo "### Copying scripts to base system ###"
+echo "###--------------------------------###"
 
 mkdir /mnt/archinstaller
 cp configure.sh /mnt/archinstaller/
@@ -75,8 +75,8 @@ cp required-services /mnt/archinstaller/
 ###----------------------------------------------
 
 clear
-echo ###-------------------------###
-echo ### chroot into base system ###
-echo ###-------------------------###
+echo "###-------------------------###"
+echo "### chroot into base system ###"
+echo "###-------------------------###"
 
 arch-chroot /mnt ./archinstaller/configure.sh
