@@ -44,4 +44,4 @@ pacman --noconfirm -S $(awk '{print $1}' required-packages-pacman)
 
 ### Setup yay
 
-#sudo yay -Q $(awk '{print $1}' required-packages-pacman)
+yay -Q $(awk '{print $1}' required-packages-yay)
