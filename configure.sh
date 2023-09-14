@@ -117,7 +117,7 @@ makepkg -si
 su
 yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
 
-clear
+#clear
 echo
 echo " ###---------------------------------------------###"
 echo " ###                                             ###"
