@@ -14,7 +14,6 @@ echo
 ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
 hwclock --systohc
 ###------------------------------------------------
-read -p 'Pause... ' pause
 
 clear
 echo
@@ -82,7 +81,7 @@ sed -i 's/#Color/Color/g' /etc/pacman.conf
 #clear
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
-echo "  ###      Updating package cache for pacman      ###"
+echo "  ###            Updating package cache           ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
@@ -93,12 +92,58 @@ pacman -Syy
 echo
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
+echo "  ###            Creating package lists           ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
+echo
+
+yay_packages=()
+pacman_packages=()
+missing_packages=()
+RED='\033[0;31m'
+RESET='\033[0m'
+
+# use pacman -Qqe > packages.txt to create the starting
+# list from our installed packages, edit as required.
+readarray -t packages < packages.txt
+
+for package in "${packages[@]}"; do
+  if (pacman -Ss ${package} | grep -i ${package} > /dev/null); then
+    echo -e "\e[1A\e[K$package found in the arch repository"
+    pacman_packages+=("$package")
+  else 
+    if (yay -Ss ${package} | grep -i ${package} > /dev/null); then
+      echo -e "\e[1A\e[K$package found in the user repository"
+      yay_packages+=("$package")
+    else 
+      echo -e "${RED}$package not found in any repository${RESET}"
+      missing_packages+=("$package")
+    fi
+  fi
+done
+
+if [ ${#pacman_packages[@]} -gt 0 ]; then
+    echo "${pacman_packages[@]}" > pacman-packages.txt
+fi
+
+if [ ${#yay_packages[@]} -gt 0 ]; then
+    echo "${yay_packages[@]}" > yay-packages.txt
+fi
+
+if [ ${#missing_packages[@]} -gt 0 ]; then
+    echo "${missing_packages[@]}" > missing-packages.txt
+fi
+
+#clear
+echo
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
 echo "  ###        Installing required packages         ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
-#pacman --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-pacman)
-cat /archinstaller/required-packages-pacman | tr '\n' ' ' | xargs pacman --noconfirm -S
+
+cat /archinstaller/pacman-packages.txt | xargs pacman --noconfirm --needed -S
 ###---------------------------------------------------------------
 
 #clear
@@ -121,7 +166,7 @@ sleep 3
 makepkg -si 
 EOF
 #yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
-cat /archinstaller/required-packages-yay | tr '\n' ' ' | xargs yay --noconfirm -S
+cat /archinstaller/yay-packages.txt | xargs yay --noconfirm --needed -S
 read -p 'Pause... ' pause
 
 #clear
