@@ -5,7 +5,11 @@ timedatectl set-ntp true
 
 lsblk | grep disk
 read -p 'Enter the disk name: ' disk
+
 # Create the partitions
+# TODO: List all disks and give an option to do more than 1 disk
+# TODO: Offer the ability to have /home on a separate drive
+
 echo "Creating 4 partitions"
 (echo g
 echo n; echo 1; echo ; echo '+550M'
@@ -30,14 +34,14 @@ mount --mkdir /dev/"$disk"4 /mnt/home
 ### Enable the SWAP partition
 swapon /dev/"$disk"2 
 
-# Install required packages
-pacstrap -K /mnt base linux linux-firmware networkmanager nano sudo
+# Install required packages for a base install (we'll be installing more packages later)
+pacstrap -K /mnt base linux linux-firmware base-devel git intel-ucode linux-headers reflector nano openssh awk
 
 # Create the file table
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Copy the remaining scripts to a temporary directory
-mkdir /mnt/archinstall 
-cp config.sh /mnt/archinstall/
+mkdir /mnt/archinstaller
+cp configure.sh /mnt/archinstaller/
 
-arch-chroot /mnt ./archinstall/config.sh
+arch-chroot /mnt ./archinstaller/configure.sh
