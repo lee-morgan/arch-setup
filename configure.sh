@@ -22,7 +22,6 @@ sed -i 's/#en_gb.UTF/en_GB.UTF/' /etc/locale.gen
 locale-gen
 echo "LANG=en_GB.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=uk"  >> /etc/vconsole.conf
-localectl set-x11-keymap gb
 ###----------------------------------------------
 
 clear
