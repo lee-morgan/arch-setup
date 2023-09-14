@@ -59,6 +59,14 @@ echo "###----------------------------------###"
 reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 clear
+echo "###----------------------###"
+echo "### Patching pacman.conf ###"
+echo "###----------------------###"
+
+sed -i 's/#Color/Color/g' /etc/pacman.conf
+###-------------------------------------------
+
+clear
 echo "###---------------------------------###"
 echo "### Update package cache for pacman ###"
 echo "###---------------------------------###"
