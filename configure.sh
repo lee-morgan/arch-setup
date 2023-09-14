@@ -44,12 +44,16 @@ clear
 echo
 echo "###-----------------------------###"
 echo "### Setting up users and groups ###"
-echo -e "###-----------------------------###\n"
+echo "###-----------------------------###"
 echo
 echo "Please enter a password for the root account: "
 passwd 
 
 clear
+echo
+echo "###-----------------------------###"
+echo "### Setting up users and groups ###"
+echo "###-----------------------------###"
 echo
 useradd -m $username 
 echo "Please enter a password for the '$username' account: "
@@ -73,6 +77,7 @@ echo "###----------------------###"
 echo
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 ###-------------------------------------------
+echo $PWD
 cat /archinstaller/required-packages-yay
 read -p 'Pause... ' pause
 #clear
