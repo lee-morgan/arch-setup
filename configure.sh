@@ -55,8 +55,6 @@ echo " ###                                             ###"
 echo " ###---------------------------------------------###"
 echo
 useradd -m $username 
-echo "Please enter a password for the '$username' account: "
-passwd $username 
 usermod -aG wheel,audio,video,optical,storage $username 
 ###---------------------------------------------------------
 
@@ -122,12 +120,15 @@ yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
 echo
 echo " ###---------------------------------------------###"
 echo " ###                                             ###"
-echo " ###           Setting up root password          ###"
+echo " ###    Setting up root and $username password   ###"
 echo " ###                                             ###"
 echo " ###---------------------------------------------###"
 echo
 echo "Please enter a password for the root account: "
 passwd 
+echo
+echo "Please enter a password for the '$username' account: "
+passwd $username 
 read -p 'Pause... ' pause
 #clear
 echo
