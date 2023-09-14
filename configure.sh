@@ -5,11 +5,11 @@ username="lee"
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###            Configuring timezones            ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###            Configuring timezones            ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
 hwclock --systohc
@@ -18,11 +18,11 @@ read -p 'Pause... ' pause
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###        Creating and Patching locales        ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###        Creating and Patching locales        ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 sed -i 's/#en_gb.UTF/en_GB.UTF/' /etc/locale.gen
 locale-gen
@@ -32,11 +32,11 @@ echo "KEYMAP=uk"  >> /etc/vconsole.conf
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###       Configuring hostname and hosts        ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###       Configuring hostname and hosts        ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 read -p 'Please enter a hostname for this device: ' hostname
 echo $hostname >> /etc/hostname
@@ -48,11 +48,11 @@ echo -e "127.0.1.1\t$hostname.local\t$hostname" >> /etc/hosts
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###         Setting up users and groups         ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###         Setting up users and groups         ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 useradd -m $username 
 usermod -aG wheel,audio,video,optical,storage $username 
@@ -60,42 +60,42 @@ usermod -aG wheel,audio,video,optical,storage $username
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###      Updating the mirrorlist for pacman     ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###      Updating the mirrorlist for pacman     ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 #reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###            Patching pacman.conf             ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###            Patching pacman.conf             ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 ###-------------------------------------------
 
 #clear
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###      Updating package cache for pacman      ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###      Updating package cache for pacman      ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 pacman -Syy 
 ###-------------------------------------------
 
 #clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###        Installing required packages         ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###        Installing required packages         ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 #pacman --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-pacman)
 cat /archinstaller/required-packages-pacman | tr '\n' ' ' | xargs pacman --noconfirm -S
@@ -103,20 +103,21 @@ cat /archinstaller/required-packages-pacman | tr '\n' ' ' | xargs pacman --nocon
 
 #clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ### Setup yay and install required AUR packages ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ### Setup yay and install required AUR packages ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 
 sudo -i -u $username bash << EOF 
-mkdir -p $HOME/repos
+username = $(whoami)
+mkdir -p /home/$username/repos
 sleep 3
-cd $HOME/repos
+cd /home/$username/repos
 sleep 3
 git clone https://aur.archlinux.org/yay.git 
-cd $HOME/repos/yay
+cd /home/$username/repos/yay
 sleep 3
 makepkg -si 
 EOF
@@ -126,11 +127,11 @@ read -p 'Pause... ' pause
 
 #clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###      Setting up root and user passwords     ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###      Setting up root and user passwords     ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 echo
 echo "Please enter a password for the root account: "
 passwd 
@@ -140,11 +141,11 @@ passwd $username
 read -p 'Pause... ' pause
 #clear
 echo
-echo " ###---------------------------------------------###"
-echo " ###                                             ###"
-echo " ###     Continue the rest of the setup here     ###"
-echo " ###                                             ###"
-echo " ###---------------------------------------------###"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###     Continue the rest of the setup here     ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
 
 exit
 
