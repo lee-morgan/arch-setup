@@ -111,15 +111,10 @@ echo " ###---------------------------------------------###"
 echo
 
 sudo -i -u $username bash << EOF 
-cd $HOME 
-mkdir repos
-cd repos
-echo $PWD
-read -p 'Pause... ' pause
+mkdir -p /home/$(whoami)/repos
+cd /home/$(whoami)/repos
 git clone https://aur.archlinux.org/yay-git.git 
 cd yay-git
-echo $PWD
-read -p 'Pause... ' pause
 makepkg -si 
 EOF
 #yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
