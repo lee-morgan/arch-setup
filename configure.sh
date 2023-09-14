@@ -111,11 +111,13 @@ echo " ###---------------------------------------------###"
 echo
 
 sudo -i -u $username bash << EOF 
-cd ~ 
+cd $HOME 
 mkdir repos
 cd repos
+echo $PWD
+read -p 'Pause... ' pause
 git clone https://aur.archlinux.org/yay-git.git 
-cd /yay-git
+cd yay-git
 echo $PWD
 read -p 'Pause... ' pause
 makepkg -si 
