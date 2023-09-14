@@ -111,7 +111,7 @@ echo " ###                                             ###"
 echo " ###---------------------------------------------###"
 echo
 git clone https://aur.archlinux.org/yay-git.git 
-cd yay-git 
+chmod 777 yay-git
 sudo -i -u $username bash << EOF
 cd /yay-git
 makepkg -si 
