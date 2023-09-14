@@ -47,6 +47,15 @@ swapon /dev/"$disk"2
 ###-----------------------------------
 
 clear
+echo "###----------------------###"
+echo "### Patching pacman.conf ###"
+echo "###----------------------###"
+### Not really required.
+### just thought it may look nice. :-)
+sed -i 's/#Color/Color/g' /etc/pacman.conf
+###-------------------------------------------
+
+clear
 echo "###--------------------------###"
 echo "### Installing base packages ###"
 echo "###--------------------------###"
