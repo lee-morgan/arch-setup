@@ -122,6 +122,7 @@ makepkg -si
 EOF
 #yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
 cat /archinstaller/required-packages-yay | tr '\n' ' ' | xargs yay --noconfirm -S
+read -p 'Pause... ' pause
 
 #clear
 echo
