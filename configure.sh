@@ -13,7 +13,7 @@ echo "  ###---------------------------------------------###"
 echo
 ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
 hwclock --systohc
-###------------------------------------------------
+###---------------------------------------------------------
 
 clear
 echo
@@ -27,7 +27,7 @@ sed -i 's/#en_gb.UTF/en_GB.UTF/' /etc/locale.gen
 locale-gen
 echo "LANG=en_GB.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=uk"  >> /etc/vconsole.conf
-###----------------------------------------------
+###---------------------------------------------------------
 
 clear
 echo
@@ -39,11 +39,11 @@ echo "  ###---------------------------------------------###"
 echo
 read -p 'Please enter a hostname for this device: ' hostname
 echo $hostname >> /etc/hostname
-
 ### Create the hosts file
 echo -e "127.0.0.1\tlocalhost" >> /etc/hosts
 echo -e "::1\t\tlocalhost" >> /etc/hosts
 echo -e "127.0.1.1\t$hostname.local\t$hostname" >> /etc/hosts
+###---------------------------------------------------------
 
 clear
 echo
@@ -61,11 +61,28 @@ clear
 echo
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
+echo "  ###      Setting up root and user passwords     ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
+echo
+echo "Please enter a password for the root account: "
+passwd 
+echo
+echo "Please enter a password for the '$username' account: "
+passwd $username 
+###---------------------------------------------------------
+
+clear
+echo
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
 echo "  ###      Updating the mirrorlist for pacman     ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
+# I've had problems with this so may leave it out
 #reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+###---------------------------------------------------------
 
 clear
 echo
@@ -76,7 +93,7 @@ echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
 sed -i 's/#Color/Color/g' /etc/pacman.conf
-###-------------------------------------------
+###---------------------------------------------------------
 
 #clear
 echo "  ###---------------------------------------------###"
@@ -86,7 +103,7 @@ echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
 pacman -Syy 
-###-------------------------------------------
+###---------------------------------------------------------
 
 #clear
 echo
@@ -133,8 +150,9 @@ fi
 if [ ${#missing_packages[@]} -gt 0 ]; then
     echo "${missing_packages[@]}" > missing-packages.txt
 fi
+###---------------------------------------------------------
 
-#clear
+clear
 echo
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
@@ -144,9 +162,9 @@ echo "  ###---------------------------------------------###"
 echo
 
 cat /archinstaller/pacman-packages.txt | xargs pacman --noconfirm --needed -S
-###---------------------------------------------------------------
+###---------------------------------------------------------
 
-#clear
+clear
 echo
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
@@ -154,42 +172,36 @@ echo "  ### Setup yay and install required AUR packages ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
-
-sudo -i -u $username bash << EOF 
+echo "This section requires user intervention"
+read -p 'Press ENTER when ready...' pause
+# Need some more testing on this section
+# I can do everything but run makepkg as root 
+# I'll re-run and check all paths are setup 
+# and change permissions on yay directory
 mkdir -p /home/$username/repos
-sleep 3
 cd /home/$username/repos
-sleep 3
-git clone https://aur.archlinux.org/yay.git 
-cd /home/$username/repos/yay
-sleep 3
+git clone https://aur.archlinux.org/yay-git.git 
+chown -R $username yay-git
+cd /home/$username/repos/yay-git
+sudo -i -u $username bash << EOF 
 makepkg -si 
 EOF
-#yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
+
 cat /archinstaller/yay-packages.txt | xargs yay --noconfirm --needed -S
+###---------------------------------------------------------
+
+# Just pause it here so i can check the output from the above section
 read -p 'Pause... ' pause
 
-#clear
-echo
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###      Setting up root and user passwords     ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
-echo
-echo "Please enter a password for the root account: "
-passwd 
-echo
-echo "Please enter a password for the '$username' account: "
-passwd $username 
-read -p 'Pause... ' pause
-#clear
+clear
 echo
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###     Continue the rest of the setup here     ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
+echo 
 
+###---------------------------------------------------------
 exit
 
