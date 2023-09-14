@@ -45,6 +45,7 @@ echo
 echo "Please enter a password for the root account: "
 passwd 
 
+clear
 useradd -m $username 
 echo "Please enter a password for the '$username' account: "
 passwd $username 
