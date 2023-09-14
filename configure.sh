@@ -7,7 +7,7 @@ clear
 echo "###-----------------------###"
 echo "### Configuring timezones ###"
 echo "###-----------------------###"
-
+echo
 ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
 hwclock --systohc
 ###------------------------------------------------
@@ -17,7 +17,7 @@ clear
 echo "###-------------------------------###"
 echo "### Creating and Patching locales ###"
 echo "###-------------------------------###"
-
+echo
 sed -i 's/#en_gb.UTF/en_GB.UTF/' /etc/locale.gen
 locale-gen
 echo "LANG=en_GB.UTF-8" >> /etc/locale.conf
@@ -28,7 +28,7 @@ clear
 echo "###--------------------------------###"
 echo "### Configuring hostname and hosts ###"
 echo "###--------------------------------###"
-
+echo
 read -p 'Please enter a hostname for this device: ' hostname
 echo $hostname >> /etc/hostname
 
@@ -41,7 +41,7 @@ clear
 echo "###-----------------------------###"
 echo "### Setting up users and groups ###"
 echo -e "###-----------------------------###\n"
-
+echo
 echo "Please enter a password for the root account: "
 passwd 
 
@@ -55,14 +55,14 @@ clear
 echo "###----------------------------------###"
 echo "### Update the mirrorlist for pacman ###"
 echo "###----------------------------------###"
-
+echo
 reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 clear
 echo "###----------------------###"
 echo "### Patching pacman.conf ###"
 echo "###----------------------###"
-
+echo
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 ###-------------------------------------------
 
@@ -70,7 +70,7 @@ clear
 echo "###---------------------------------###"
 echo "### Update package cache for pacman ###"
 echo "###---------------------------------###"
-
+echo
 pacman -Syy 
 ###-------------------------------------------
 
@@ -78,7 +78,7 @@ clear
 echo "###---------------------------###"
 echo "### Install required packages ###"
 echo "###---------------------------###"
-
+echo
 pacman --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-pacman)
 ###---------------------------------------------------------------
 
@@ -86,5 +86,15 @@ clear
 echo "###---------------------------------------------###"
 echo "### Setup yay and install required AUR packages ###"
 echo "###---------------------------------------------###"
-
+echo
+git clone https://aur.archlinux.org/yay-git.git 
+cd yay-git
+makepkg -si
 yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
+
+clear
+echo "###-------------------------------------###"
+echo "### Continue the rest of the setup here ###"
+echo "###-------------------------------------###"
+
+exit
