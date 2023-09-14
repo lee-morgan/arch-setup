@@ -66,7 +66,7 @@ echo
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 ###-------------------------------------------
 
-clear
+#clear
 echo "###---------------------------------###"
 echo "### Update package cache for pacman ###"
 echo "###---------------------------------###"
@@ -74,7 +74,7 @@ echo
 pacman -Syy 
 ###-------------------------------------------
 
-clear
+#clear
 echo "###---------------------------###"
 echo "### Install required packages ###"
 echo "###---------------------------###"
@@ -82,7 +82,7 @@ echo
 pacman --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-pacman)
 ###---------------------------------------------------------------
 
-clear
+#clear
 echo "###---------------------------------------------###"
 echo "### Setup yay and install required AUR packages ###"
 echo "###---------------------------------------------###"
@@ -92,7 +92,7 @@ cd yay-git
 makepkg -si
 yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
 
-clear
+#clear
 echo "###-------------------------------------###"
 echo "### Continue the rest of the setup here ###"
 echo "###-------------------------------------###"
