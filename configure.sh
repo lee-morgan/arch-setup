@@ -4,6 +4,7 @@ zoneinfo="Europe/London"
 username="lee"
 
 clear
+echo
 echo "###-----------------------###"
 echo "### Configuring timezones ###"
 echo "###-----------------------###"
@@ -14,6 +15,7 @@ hwclock --systohc
 read -p 'Pause... ' pause
 
 clear
+echo
 echo "###-------------------------------###"
 echo "### Creating and Patching locales ###"
 echo "###-------------------------------###"
@@ -25,6 +27,7 @@ echo "KEYMAP=uk"  >> /etc/vconsole.conf
 ###----------------------------------------------
 
 clear
+echo
 echo "###--------------------------------###"
 echo "### Configuring hostname and hosts ###"
 echo "###--------------------------------###"
@@ -38,6 +41,7 @@ echo -e "::1\t\tlocalhost" >> /etc/hosts
 echo -e "127.0.1.1\t$hostname.local\t$hostname" >> /etc/hosts
 
 clear
+echo
 echo "###-----------------------------###"
 echo "### Setting up users and groups ###"
 echo -e "###-----------------------------###\n"
@@ -46,6 +50,7 @@ echo "Please enter a password for the root account: "
 passwd 
 
 clear
+echo
 useradd -m $username 
 echo "Please enter a password for the '$username' account: "
 passwd $username 
@@ -53,6 +58,7 @@ usermod -aG wheel,audio,video,optical,storage $username
 ###---------------------------------------------------------
 
 clear
+echo
 echo "###----------------------------------###"
 echo "### Update the mirrorlist for pacman ###"
 echo "###----------------------------------###"
@@ -60,6 +66,7 @@ echo
 reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 clear
+echo
 echo "###----------------------###"
 echo "### Patching pacman.conf ###"
 echo "###----------------------###"
@@ -77,6 +84,7 @@ pacman -Syy
 ###-------------------------------------------
 
 #clear
+echo
 echo "###---------------------------###"
 echo "### Install required packages ###"
 echo "###---------------------------###"
@@ -85,6 +93,7 @@ pacman --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-pacman
 ###---------------------------------------------------------------
 
 #clear
+echo
 echo "###---------------------------------------------###"
 echo "### Setup yay and install required AUR packages ###"
 echo "###---------------------------------------------###"
@@ -95,6 +104,7 @@ makepkg -si
 yay --noconfirm -S $(awk '{print $1}' /archinstaller/required-packages-yay)
 read -p 'Pause... ' pause
 #clear
+echo
 echo "###-------------------------------------###"
 echo "### Continue the rest of the setup here ###"
 echo "###-------------------------------------###"
