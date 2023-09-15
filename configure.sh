@@ -103,7 +103,9 @@ echo -e "${RESET}"
 
 # I don't really like this method, I will come up with an alternative solution
 #echo 's/^#\s*\(%wheel\s*ALL=(ALL)\s*ALL\)/\1/g' | EDITOR='sed -f- -i' visudo
-sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL(ALL:ALL) ALL' /etc/sudoers
+sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL(ALL:ALL) ALL' /etc/sudoers 
+read -p 'Pause... ' pause
+cat /etc/sudoers
 sleep $timeout
 ###---------------------------------------------------------
 
