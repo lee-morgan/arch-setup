@@ -101,7 +101,8 @@ echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo -e "${RESET}"
 
-echo 's/^#\s*\(%wheel\s*ALL=(ALL)\s*ALL\)/\1/g' | EDITOR='sed -f- -i' visudo
+#echo 's/^#\s*\(%wheel\s*ALL=(ALL)\s*ALL\)/\1/g' | EDITOR='sed -f- -i' visudo
+sed -i 's/^#\s*\(%wheel\s*ALL=(ALL)\s*ALL\)/\1/g' /etc/sudoers
 sleep $timeout
 ###---------------------------------------------------------
 
@@ -140,13 +141,7 @@ git clone https://aur.archlinux.org/yay-git.git
 chown -R $username:$username yay-git
 sudo -i -u $username bash << EOF 
 cd /home/$username/repos/yay-git
-echo 
-echo $username
-echo $PWD
-echo
-sleep 10
 makepkg -si 
-sleep 10
 EOF
 cd /archinstaller
 sleep $timeout
