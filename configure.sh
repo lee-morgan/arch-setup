@@ -37,7 +37,7 @@ echo "  ###---------------------------------------------###"
 echo -e "${RESET}"
 
 sed -i 's/#en_gb.UTF/en_GB.UTF/' /etc/locale.gen
-locale-gen
+locale-gen > /dev/null
 echo "LANG=en_GB.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=uk"  >> /etc/vconsole.conf
 sleep $timeout
