@@ -14,26 +14,28 @@ zoneinfo="Europe/London"
 username="lee"
 
 clear
-echo
-echo -e "${CYAN}  ###---------------------------------------------###${RESET}"
-echo -e "${CYAN}  ###                                             ###${RESET}"
-echo -e "${CYAN}  ###            Configuring timezones            ###${RESET}"
-echo -e "${CYAN}  ###                                             ###${RESET}"
-echo -e "${CYAN}  ###---------------------------------------------###${RESET}"
-echo
+echo -e "${CYAN}"
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###            Configuring timezones            ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
+echo -e "${RESET}"
+
 ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
 hwclock --systohc
 sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo
-echo -e "${CYAN} ###---------------------------------------------###"
+echo -e "${CYAN}"
+echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###        Creating and Patching locales        ###"
 echo "  ###                                             ###"
-echo -e "  ###---------------------------------------------###${RESET}"
-echo
+echo "  ###---------------------------------------------###"
+echo -e "${RESET}"
+
 sed -i 's/#en_gb.UTF/en_GB.UTF/' /etc/locale.gen
 locale-gen
 echo "LANG=en_GB.UTF-8" >> /etc/locale.conf
@@ -42,13 +44,14 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo-e "${CYAN}"
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###       Configuring hostname and hosts        ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo -e "${RESET}"
+
 read -p 'Please enter a hostname for this device: ' hostname
 echo $hostname >> /etc/hostname
 ### Create the hosts file
@@ -59,26 +62,28 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###         Setting up users and groups         ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo
+echo -e "${RESET}"
+
 useradd -m $username 
 usermod -aG wheel,audio,video,optical,storage $username 
 sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###      Setting up root and user passwords     ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo
+echo -e "${RESET}"
+
 echo "Please enter a password for the root account: "
 passwd 
 echo
@@ -88,38 +93,41 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###            Patching sudoers file            ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo
+echo -e "${RESET}"
+
 echo 's/^#\s*\(%wheel\s*ALL=(ALL)\s*ALL\)/\1/g' | EDITOR='sed -f- -i' visudo
 sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###      Updating the mirrorlist for pacman     ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo
+echo -e "${RESET}"
+
 # I've had problems with this so may leave it out
 #reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist 
 sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###                  Setup yay                  ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo
+echo -e "${RESET}"
+
 echo "This section requires user intervention"
 read -p 'Press ENTER when ready to continue...' pause
 # Need some more testing on this section
@@ -132,43 +140,52 @@ git clone https://aur.archlinux.org/yay-git.git
 chown -R $username:$username yay-git
 sudo -i -u $username bash << EOF 
 cd /home/$username/repos/yay-git
+echo 
+echo $username
+echo $PWD
+echo
+sleep 10
 makepkg -si 
+sleep 10
 EOF
 cd /archinstaller
 sleep $timeout
 
 #clear
-echo
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###            Patching pacman.conf             ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo
+echo -e "${RESET}"
+
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 sleep $timeout
 ###---------------------------------------------------------
 
 #clear
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###            Updating package cache           ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo
+echo -e "${RESET}"
+
 pacman -Syy 
 yay -Syy
 sleep $timeout
 ###---------------------------------------------------------
 
 #clear
-echo
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###            Creating package lists           ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo
+echo -e "${RESET}"
 
 yay_packages=()
 pacman_packages=()
@@ -208,26 +225,27 @@ sleep $timeout
 ###---------------------------------------------------------
 
 #clear
-echo
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###        Installing required packages         ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo
+echo -e "${RESET}"
 
 cat /archinstaller/pacman-packages.txt | xargs pacman --noconfirm --needed -S
 sleep $timeout
 ###---------------------------------------------------------
 
 #clear
-echo
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###            Install yay packages             ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo
+echo -e "${RESET}"
+
 cat /archinstaller/yay-packages.txt | xargs yay --noconfirm --needed -S
 sleep $timeout
 ###---------------------------------------------------------
@@ -236,13 +254,14 @@ sleep $timeout
 read -p 'Pause... ' pause
 
 clear
-echo
+echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###     Continue the rest of the setup here     ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo 
+echo -e "${RESET}"
+
 sleep $timeout
 ###---------------------------------------------------------
 exit
