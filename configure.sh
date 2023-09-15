@@ -107,7 +107,7 @@ sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL(ALL:ALL) ALL' /etc/sudoers
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
+#clear
 echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
@@ -121,7 +121,7 @@ echo -e "${RESET}"
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
+#clear
 echo -e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
