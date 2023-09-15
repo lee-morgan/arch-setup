@@ -9,7 +9,7 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m' 
 RESET='\033[0m'
 
-timeout=2
+timeout=10
 zoneinfo="Europe/London"
 username="lee"
 
@@ -104,12 +104,10 @@ echo -e "${RESET}"
 # I don't really like this method, I will come up with an alternative solution
 #echo 's/^#\s*\(%wheel\s*ALL=(ALL)\s*ALL\)/\1/g' | EDITOR='sed -f- -i' visudo
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers 
-read -p 'Pause... ' pause
-cat /etc/sudoers
 sleep $timeout
 ###---------------------------------------------------------
 
-#clear
+clear
 echo -e "${CYAN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -143,11 +141,10 @@ cd /home/$username/repos
 git clone https://aur.archlinux.org/yay-git.git 
 chown -R $username:$username yay-git
 sudo -i -u $username bash -c "cd /home/$username/repos/yay-git && makepkg -si"
-read -p 'Press ENTER when ready to continue...' pause
 cd /archinstaller
 sleep $timeout
 
-#clear
+clear
 echo -e "${YELLOW}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -160,7 +157,7 @@ sed -i 's/#Color/Color/g' /etc/pacman.conf
 sleep $timeout
 ###---------------------------------------------------------
 
-#clear
+clear
 echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -170,11 +167,10 @@ echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 pacman -Syy 
-yay -Syy
 sleep $timeout
 ###---------------------------------------------------------
 
-#clear
+clear
 echo -e "${PURPLE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -188,7 +184,7 @@ comm -23 <(sort packages.txt) <(pacman -Slq | sort) > aur-packages.txt
 sleep $timeout
 ###---------------------------------------------------------
 
-#clear
+clear
 echo -e "${CYAN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -197,11 +193,11 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-pacman --noconfirm --needed --noprogressbar -S $(awk '{print $1}' /archinstaller/pacman-packages.txt)
+pacman --noconfirm --needed -S $(awk '{print $1}' /archinstaller/pacman-packages.txt)
 sleep $timeout
 ###---------------------------------------------------------
 
-#clear
+clear
 echo -e "${GREEN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -210,8 +206,8 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-yay --noconfirm --needed --noprogressbar -S $(awk '{print $1}' /archinstaller/aur-packages.txt)
-sleep 10
+yay --noconfirm --needed -S $(awk '{print $1}' /archinstaller/aur-packages.txt)
+sleep $timeout
 ###---------------------------------------------------------
 
 clear
@@ -257,6 +253,8 @@ echo -e "initrd  /intel-ucode.img" >> /boot/loader/entries/arch-fallback.conf
 echo -e "initrd /initramfs-linux-fallback.img" >> /boot/loader/entries/arch-fallback.conf
 echo -e "options root=/dev/sda3 rw quiet splash" >> /boot/loader/entries/arch-fallback.conf
 sleep 20
+###---------------------------------------------------------
+
 clear
 echo -e "${CYAN}"
 echo "###---------------------------------------------###"
@@ -268,7 +266,3 @@ echo -e "${RESET}"
 
 sleep $timeout
 ###---------------------------------------------------------
-
-sleep $timeout
-###---------------------------------------------------------
-
