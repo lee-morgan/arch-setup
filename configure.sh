@@ -9,6 +9,7 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m' 
 RESET='\033[0m'
 
+timeout=2
 zoneinfo="Europe/London"
 username="lee"
 
@@ -22,6 +23,7 @@ echo -e "${CYAN}  ###---------------------------------------------###${RESET}"
 echo
 ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
 hwclock --systohc
+sleep $timeout
 ###---------------------------------------------------------
 
 clear
@@ -36,22 +38,24 @@ sed -i 's/#en_gb.UTF/en_GB.UTF/' /etc/locale.gen
 locale-gen
 echo "LANG=en_GB.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=uk"  >> /etc/vconsole.conf
+sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo
+echo-e "${CYAN}"
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###       Configuring hostname and hosts        ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
-echo
+echo -e "${RESET}"
 read -p 'Please enter a hostname for this device: ' hostname
 echo $hostname >> /etc/hostname
 ### Create the hosts file
 echo -e "127.0.0.1\tlocalhost" >> /etc/hosts
 echo -e "::1\t\tlocalhost" >> /etc/hosts
 echo -e "127.0.1.1\t$hostname.local\t$hostname" >> /etc/hosts
+sleep $timeout
 ###---------------------------------------------------------
 
 clear
@@ -64,6 +68,7 @@ echo "  ###---------------------------------------------###"
 echo
 useradd -m $username 
 usermod -aG wheel,audio,video,optical,storage $username 
+sleep $timeout
 ###---------------------------------------------------------
 
 clear
@@ -79,6 +84,7 @@ passwd
 echo
 echo "Please enter a password for the '$username' account: "
 passwd $username 
+sleep $timeout
 ###---------------------------------------------------------
 
 clear
@@ -90,10 +96,36 @@ echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
 # I've had problems with this so may leave it out
-#reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+#reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist 
+sleep $timeout
 ###---------------------------------------------------------
 
 clear
+echo
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo "  ###                  Setup yay                  ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
+echo
+echo "This section requires user intervention"
+read -p 'Press ENTER when ready to continue...' pause
+# Need some more testing on this section
+# I can do everything but run makepkg as root 
+# I'll re-run and check all paths are setup 
+# and change permissions on yay directory
+mkdir -p /home/$username/repos
+cd /home/$username/repos
+git clone https://aur.archlinux.org/yay-git.git 
+chown -R $username:$username yay-git
+sudo -i -u $username bash << EOF 
+cd /home/$username/repos/yay-git
+makepkg -si 
+EOF
+cd /archinstaller
+sleep $timeout
+
+#clear
 echo
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
@@ -102,6 +134,7 @@ echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
 sed -i 's/#Color/Color/g' /etc/pacman.conf
+sleep $timeout
 ###---------------------------------------------------------
 
 #clear
@@ -112,6 +145,8 @@ echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
 pacman -Syy 
+yay -Syy
+sleep $timeout
 ###---------------------------------------------------------
 
 #clear
@@ -129,7 +164,7 @@ missing_packages=()
 
 # use pacman -Qqe > packages.txt to create the starting
 # list from our installed packages, edit as required.
-readarray -t packages < packages.txt
+readarray -t packages < /archinstaller/packages.txt
 
 for package in "${packages[@]}"; do
   if (pacman -Ss ${package} | grep -i ${package} > /dev/null); then
@@ -157,9 +192,10 @@ fi
 if [ ${#missing_packages[@]} -gt 0 ]; then
     echo "${missing_packages[@]}" > missing-packages.txt
 fi
+sleep $timeout
 ###---------------------------------------------------------
 
-clear
+#clear
 echo
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
@@ -169,32 +205,19 @@ echo "  ###---------------------------------------------###"
 echo
 
 cat /archinstaller/pacman-packages.txt | xargs pacman --noconfirm --needed -S
+sleep $timeout
 ###---------------------------------------------------------
 
-clear
+#clear
 echo
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
-echo "  ### Setup yay and install required AUR packages ###"
+echo "  ###            Install yay packages             ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
-echo "This section requires user intervention"
-read -p 'Press ENTER when ready...' pause
-# Need some more testing on this section
-# I can do everything but run makepkg as root 
-# I'll re-run and check all paths are setup 
-# and change permissions on yay directory
-mkdir -p /home/$username/repos
-cd /home/$username/repos
-git clone https://aur.archlinux.org/yay-git.git 
-chown -R $username yay-git
-cd /home/$username/repos/yay-git
-sudo -i -u $username bash << EOF 
-makepkg -si 
-EOF
-
 cat /archinstaller/yay-packages.txt | xargs yay --noconfirm --needed -S
+sleep $timeout
 ###---------------------------------------------------------
 
 # Just pause it here so i can check the output from the above section
@@ -208,7 +231,7 @@ echo "  ###     Continue the rest of the setup here     ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo 
-
+sleep $timeout
 ###---------------------------------------------------------
 exit
 
