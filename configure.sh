@@ -91,6 +91,18 @@ clear
 echo
 echo "  ###---------------------------------------------###"
 echo "  ###                                             ###"
+echo "  ###            Patching sudoers file            ###"
+echo "  ###                                             ###"
+echo "  ###---------------------------------------------###"
+echo
+echo 's/^#\s*\(%wheel\s*ALL=(ALL)\s*ALL\)/\1/g' | EDITOR='sed -f- -i' visudo
+sleep $timeout
+###---------------------------------------------------------
+
+clear
+echo
+echo "  ###---------------------------------------------###"
+echo "  ###                                             ###"
 echo "  ###      Updating the mirrorlist for pacman     ###"
 echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
