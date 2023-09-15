@@ -1,15 +1,24 @@
 #!/bin/bash
 
+# Define our colors 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m' 
+CYAN='\033[0;36m' 
+RESET='\033[0m'
+
 zoneinfo="Europe/London"
 username="lee"
 
 clear
 echo
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###            Configuring timezones            ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "${CYAN}  ###---------------------------------------------###${RESET}"
+echo -e "${CYAN}  ###                                             ###${RESET}"
+echo -e "${CYAN}  ###            Configuring timezones            ###${RESET}"
+echo -e "${CYAN}  ###                                             ###${RESET}"
+echo -e "${CYAN}  ###---------------------------------------------###${RESET}"
 echo
 ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
 hwclock --systohc
@@ -17,11 +26,11 @@ hwclock --systohc
 
 clear
 echo
-echo "  ###---------------------------------------------###"
+echo -e "${CYAN} ###---------------------------------------------###"
 echo "  ###                                             ###"
 echo "  ###        Creating and Patching locales        ###"
 echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "  ###---------------------------------------------###${RESET}"
 echo
 sed -i 's/#en_gb.UTF/en_GB.UTF/' /etc/locale.gen
 locale-gen
@@ -117,8 +126,6 @@ echo
 yay_packages=()
 pacman_packages=()
 missing_packages=()
-RED='\033[0;31m'
-RESET='\033[0m'
 
 # use pacman -Qqe > packages.txt to create the starting
 # list from our installed packages, edit as required.

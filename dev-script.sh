@@ -5,6 +5,14 @@ pacman_packages=()
 missing_packages=()
 RED='\033[0;31m'
 RESET='\033[0m'
+CYAN='\033[0;36m' 
+echo
+echo -e "${RED}  ###---------------------------------------------###"
+echo "  ###                                             ###"
+echo -e "  ###        ${CYAN}Creating and Patching locales${RED}        ###"
+echo "  ###                                             ###"
+echo -e "  ###---------------------------------------------###${RESET}"
+echo
 
 pacman -Qqe > packages.txt
 
