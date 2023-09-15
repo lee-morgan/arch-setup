@@ -26,7 +26,7 @@ read -p 'Enter the disk name: ' disk
 #echo t; echo 1; echo 1
 #echo t; echo 2; echo 19
 #echo w) | fdisk /dev/$disk
-###---------------------------------
+###---------------------------------------------------------
 
 clear
 echo
@@ -40,7 +40,7 @@ mkfs.fat -F32 /dev/"$disk"1 # EFI
 mkswap /dev/"$disk"2 # SWAP 
 mkfs.ext4 /dev/"$disk"3 # /
 mkfs.ext4 /dev/"$disk"4 # /home
-###-------------------------------
+###---------------------------------------------------------
 
 clear
 echo
@@ -54,7 +54,7 @@ mount /dev/"$disk"3 /mnt
 mount --mkdir /dev/"$disk"1 /mnt/boot
 mount --mkdir /dev/"$disk"4 /mnt/home
 swapon /dev/"$disk"2 
-###-----------------------------------
+###---------------------------------------------------------
 
 clear
 echo
@@ -67,7 +67,7 @@ echo
 ### Not really required.
 ### just thought it may look nice. :-)
 sed -i 's/#Color/Color/g' /etc/pacman.conf
-###-------------------------------------------
+###---------------------------------------------------------
 
 clear
 echo
@@ -78,7 +78,7 @@ echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
 pacstrap -K /mnt base linux linux-firmware base-devel git intel-ucode linux-headers reflector nano openssh awk
-###-----------------------------------------------------------------------------------------------------------
+###----------------------------------------------------------
 
 clear
 echo
@@ -89,7 +89,7 @@ echo "  ###                                             ###"
 echo "  ###---------------------------------------------###"
 echo
 genfstab -U /mnt >> /mnt/etc/fstab
-###-------------------------------
+###---------------------------------------------------------
 
 clear
 echo
@@ -104,7 +104,7 @@ cp configure.sh /mnt/archinstaller/
 cp required-packages-pacman /mnt/archinstaller/
 cp required-packages-yay /mnt/archinstaller/
 cp required-services /mnt/archinstaller/
-###----------------------------------------------
+###---------------------------------------------------------
 
 clear
 echo
