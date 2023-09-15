@@ -211,7 +211,7 @@ echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 yay --noconfirm --needed --noprogressbar -S $(awk '{print $1}' /archinstaller/aur-packages.txt)
-sleep $timeout
+sleep 10
 ###---------------------------------------------------------
 
 clear
@@ -234,7 +234,7 @@ clear
 echo -e "${CYAN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
-echo "###      Install and configure systend-boot     ###"
+echo "###      Install and configure systemd-boot     ###"
 echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
@@ -256,7 +256,7 @@ echo -e "linux /vmlinuz-linux" >> /boot/loader/entries/arch-fallback.conf
 echo -e "initrd  /intel-ucode.img" >> /boot/loader/entries/arch-fallback.conf
 echo -e "initrd /initramfs-linux-fallback.img" >> /boot/loader/entries/arch-fallback.conf
 echo -e "options root=/dev/sda3 rw quiet splash" >> /boot/loader/entries/arch-fallback.conf
-
+sleep 20
 clear
 echo -e "${CYAN}"
 echo "###---------------------------------------------###"
