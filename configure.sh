@@ -1,5 +1,5 @@
 #!/bin/bash
-
+read -p 'Pause... ' pause
 # Define our colors 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
