@@ -41,8 +41,7 @@ pipewire-alsa
 pipewire-pulse
 polkit-kde-agent
 python-pip
-python-psutil
-qt5-wayland
+qt5-quickcontrols2
 qt6-wayland
 ranger
 reflector
@@ -51,6 +50,7 @@ sddm-git
 spdlog-git
 spotify
 starship
+sudo
 swayidle-git
 swaylock-effects-git
 swww
@@ -66,4 +66,5 @@ waybar-mpris-git
 wlogout-git
 wofi
 xdg-user-dirs
+yay
 zram-generator

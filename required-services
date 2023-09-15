@@ -1,3 +1,2 @@
-systemctl --user enable --now pipewire pipewire-pulse pipewire-media-session 
-systemctl enable --now bluetooth.service 
-systemctl enable sddm 
+
+

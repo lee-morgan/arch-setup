@@ -14,12 +14,12 @@ zoneinfo="Europe/London"
 username="lee"
 
 clear
-echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###            Configuring timezones            ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "${PURPLE}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###            Configuring timezones            ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
@@ -29,11 +29,11 @@ sleep $timeout
 
 clear
 echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###        Creating and Patching locales        ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###        Creating and Patching locales        ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 sed -i 's/#en_gb.UTF/en_GB.UTF/' /etc/locale.gen
@@ -44,12 +44,12 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###       Configuring hostname and hosts        ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "${GREEN}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###       Configuring hostname and hosts        ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 read -p 'Please enter a hostname for this device: ' hostname
@@ -62,12 +62,12 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###         Setting up users and groups         ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "${YELLOW}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###         Setting up users and groups         ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 useradd -m $username 
@@ -76,12 +76,12 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###      Setting up root and user passwords     ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "${BLUE}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###      Setting up root and user passwords     ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 echo "Please enter a password for the root account: "
@@ -93,12 +93,12 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###            Patching sudoers file            ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "${PURPLE}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###            Patching sudoers file            ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 # I don't really like this method, I will come up with an alternative solution
@@ -111,11 +111,11 @@ sleep $timeout
 
 #clear
 echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###      Updating the mirrorlist for pacman     ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###      Updating the mirrorlist for pacman     ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 # I've had problems with this so may leave it out
@@ -124,12 +124,12 @@ sleep $timeout
 ###---------------------------------------------------------
 
 #clear
-echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###                  Setup yay                  ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "${GREEN}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###                  Setup yay                  ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 echo "This section requires user intervention"
@@ -148,12 +148,12 @@ cd /archinstaller
 sleep $timeout
 
 #clear
-echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###            Patching pacman.conf             ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "${YELLOW}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###            Patching pacman.conf             ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 sed -i 's/#Color/Color/g' /etc/pacman.conf
@@ -161,12 +161,12 @@ sleep $timeout
 ###---------------------------------------------------------
 
 #clear
-echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###            Updating package cache           ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "${BLUE}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###            Updating package cache           ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 pacman -Syy 
@@ -175,90 +175,100 @@ sleep $timeout
 ###---------------------------------------------------------
 
 #clear
-echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###            Creating package lists           ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "${PURPLE}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###            Creating package lists           ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-yay_packages=()
-pacman_packages=()
-missing_packages=()
-
-# use pacman -Qqe > packages.txt to create the starting
-# list from our installed packages, edit as required.
-readarray -t packages < /archinstaller/packages.txt
-
-for package in "${packages[@]}"; do
-  if (pacman -Ss ${package} | grep -i ${package} > /dev/null); then
-    echo -e "\e[1A\e[K$package found in the arch repository"
-    pacman_packages+=("$package")
-  else 
-    if (yay -Ss ${package} | grep -i ${package} > /dev/null); then
-      echo -e "\e[1A\e[K$package found in the user repository"
-      yay_packages+=("$package")
-    else 
-      echo -e "${RED}$package not found in any repository${RESET}"
-      missing_packages+=("$package")
-    fi
-  fi
-done
-
-if [ ${#pacman_packages[@]} -gt 0 ]; then
-    echo "${pacman_packages[@]}" > pacman-packages.txt
-fi
-
-if [ ${#yay_packages[@]} -gt 0 ]; then
-    echo "${yay_packages[@]}" > yay-packages.txt
-fi
-
-if [ ${#missing_packages[@]} -gt 0 ]; then
-    echo "${missing_packages[@]}" > missing-packages.txt
-fi
+comm -12 <(pacman -Slq | sort) <(sort packages.txt) > pacman-packages.txt
+comm -23 <(sort packages.txt) <(pacman -Slq | sort) > aur-packages.txt
 sleep $timeout
 ###---------------------------------------------------------
 
 #clear
 echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###        Installing required packages         ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###        Installing required packages         ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-cat /archinstaller/pacman-packages.txt | xargs pacman --noconfirm --needed -S
+pacman --noconfirm --needed --noprogressbar -S $(awk '{print $1}' /archinstaller/pacman-packages.txt)
 sleep $timeout
 ###---------------------------------------------------------
 
 #clear
-echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###            Install yay packages             ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo -e "${GREEN}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###            Install yay packages             ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-cat /archinstaller/yay-packages.txt | xargs yay --noconfirm --needed -S
+yay --noconfirm --needed --noprogressbar -S $(awk '{print $1}' /archinstaller/aur-packages.txt)
 sleep $timeout
 ###---------------------------------------------------------
-
-# Just pause it here so i can check the output from the above section
-read -p 'Pause... ' pause
 
 clear
 echo -e "${CYAN}"
-echo "  ###---------------------------------------------###"
-echo "  ###                                             ###"
-echo "  ###     Continue the rest of the setup here     ###"
-echo "  ###                                             ###"
-echo "  ###---------------------------------------------###"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###               Enable services               ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
+echo -e "${RESET}"
+
+systemctl enable bluetooth
+systemctl enable sddm 
+systemctl enable NetworkManager
+
+sleep $timeout
+###---------------------------------------------------------
+
+clear
+echo -e "${CYAN}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###      Install and configure systend-boot     ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
+echo -e "${RESET}"
+
+bootctl install
+
+echo -e "timeout 0" >> /boot/loader/loader.conf
+echo -e "console-mode keep" >> /boot/loader/loader.conf
+echo -e "default arch.conf" >> /boot/loader/loader.conf
+
+echo -e "title Arch Linux" >> /boot/loader/entries/arch.conf
+echo -e "linux /vmlinuz-linux" >> /boot/loader/entries/arch.conf
+echo -e "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
+echo -e "initrd /initramfs-linux.img" >> /boot/loader/entries/arch.conf
+echo -e "options root=/dev/sda3 rw quiet splash" >> /boot/loader/entries/arch.conf
+
+echo -e "title Arch Linux (fallback initramfs)" >> /boot/loader/entries/arch-fallback.conf
+echo -e "linux /vmlinuz-linux" >> /boot/loader/entries/arch-fallback.conf
+echo -e "initrd  /intel-ucode.img" >> /boot/loader/entries/arch-fallback.conf
+echo -e "initrd /initramfs-linux-fallback.img" >> /boot/loader/entries/arch-fallback.conf
+echo -e "options root=/dev/sda3 rw quiet splash" >> /boot/loader/entries/arch-fallback.conf
+
+clear
+echo -e "${CYAN}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###   Copy remaining files to user directory    ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 sleep $timeout
 ###---------------------------------------------------------
-exit
+
+sleep $timeout
+###---------------------------------------------------------
 
