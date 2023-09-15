@@ -142,10 +142,7 @@ mkdir -p /home/$username/repos
 cd /home/$username/repos
 git clone https://aur.archlinux.org/yay-git.git 
 chown -R $username:$username yay-git
-sudo -i -u $username bash << EOF 
-cd /home/$username/repos/yay-git
-makepkg -si 
-EOF
+sudo -i -u $username bash -c "cd /home/$username/repos/yay-git && makepkg -si"
 cd /archinstaller
 sleep $timeout
 
