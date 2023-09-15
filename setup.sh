@@ -101,8 +101,7 @@ echo "  ###---------------------------------------------###"
 echo
 mkdir /mnt/archinstaller
 cp configure.sh /mnt/archinstaller/
-cp required-packages-pacman /mnt/archinstaller/
-cp required-packages-yay /mnt/archinstaller/
+cp packages.txt /mnt/archinstaller/
 cp required-services /mnt/archinstaller/
 ###---------------------------------------------------------
 
