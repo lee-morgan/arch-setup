@@ -12,7 +12,6 @@ bpytop
 brightnessctl
 brillo
 cava
-code-marketplace
 dunst
 evtest
 exfat-utils
@@ -27,7 +26,6 @@ hyprshot
 intel-ucode
 jq
 kitty
-lf
 linux
 linux-firmware
 linux-headers
@@ -38,14 +36,13 @@ neovim
 network-manager-applet
 networkmanager
 pamixer
-paru
 pcmanfm-gtk3
-peazip-qt-bin
 pipewire-alsa
 pipewire-pulse
 polkit-kde-agent
 python-pip
-qt5-quickcontrols2
+python-psutil
+qt5-wayland
 qt6-wayland
 ranger
 reflector
@@ -54,7 +51,6 @@ sddm-git
 spdlog-git
 spotify
 starship
-sudo
 swayidle-git
 swaylock-effects-git
 swww
@@ -70,5 +66,4 @@ waybar-mpris-git
 wlogout-git
 wofi
 xdg-user-dirs
-yay
 zram-generator
