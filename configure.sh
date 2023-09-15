@@ -143,6 +143,7 @@ cd /home/$username/repos
 git clone https://aur.archlinux.org/yay-git.git 
 chown -R $username:$username yay-git
 sudo -i -u $username bash -c "cd /home/$username/repos/yay-git && makepkg -si"
+read -p 'Press ENTER when ready to continue...' pause
 cd /archinstaller
 sleep $timeout
 
