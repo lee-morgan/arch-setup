@@ -222,7 +222,7 @@ echo -e "${RESET}"
 
 bootctl install
 
-disk=$(<disk.txt)
+disk=$(<disk)
 echo -e "timeout 0" >> /boot/loader/loader.conf
 echo -e "console-mode keep" >> /boot/loader/loader.conf
 echo -e "default arch.conf" >> /boot/loader/loader.conf
@@ -250,7 +250,7 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-echo "[[ -f /archinstaller/run-once.sh ]] && /archinstaller/run-once.sh" > /home/$username/.profile
+echo "[[ -f /archinstaller/run-once.sh ]] && bash -i /archinstaller/run-once.sh" > /home/$username/.profile
 echo "[[ -f ~/.bashrc ]] && /. .bashrc" >> /home/$username/.profile
 
 sleep $timeout

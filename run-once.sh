@@ -32,10 +32,10 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-# systemctl --user enable --now pipewire  
-# systemctl --user enable --now pipewire-pulse 
-# systemctl --user enable --now pipewire-media-session
-# systemctl enable sddm 
+systemctl --user enable --now pipewire  
+systemctl --user enable --now pipewire-pulse 
+systemctl --user enable --now pipewire-media-session
+systemctl enable sddm 
 
 clear # Need to work out which color we're using.
 echo -e "${CYAN}"
