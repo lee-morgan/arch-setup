@@ -8,7 +8,7 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m' 
 RESET='\033[0m'
 
-timeout=0.1
+timeout=1
 
 loadkeys uk 
 timedatectl set-ntp true
@@ -25,6 +25,9 @@ echo -e "${RESET}"
 # lsblk | grep disk | awk '{print $1}'
 echo -e "Available disks: $(lsblk | grep disk | awk '{print $1,($4)}' | sed -z 's/\n/, /g;s/, $/\n/')"
 read -p 'Enter the disk name: ' disk
+
+# Save the disk as we'll need it later
+echo $disk > disk
 
 (echo g
 echo n; echo 1; echo ; echo '+550M'
@@ -117,7 +120,8 @@ echo -e "${RESET}"
 mkdir /mnt/archinstaller
 cp configure.sh /mnt/archinstaller/
 cp packages.txt /mnt/archinstaller/
-cp required-services /mnt/archinstaller/
+cp disk /mnt/archinstaller/
+cd run-once.sh /mnt/archinstaller
 ###---------------------------------------------------------
 
 clear
@@ -130,3 +134,5 @@ echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 arch-chroot /mnt ./archinstaller/configure.sh
+sleep $timeout 
+###---------------------------------------------------------

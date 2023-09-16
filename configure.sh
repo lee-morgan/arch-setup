@@ -1,6 +1,5 @@
 #!/bin/bash
-read -p 'Pause... ' pause
-# Define our colors 
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -201,33 +200,19 @@ clear
 echo -e "${GREEN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
-echo "###            Install yay packages             ###"
-echo "###                                             ###"
-echo "###---------------------------------------------###"
-echo -e "${RESET}"
-
-yay --noconfirm --needed -S $(awk '{print $1}' /archinstaller/aur-packages.txt)
-sleep $timeout
-###---------------------------------------------------------
-
-clear
-echo -e "${CYAN}"
-echo "###---------------------------------------------###"
-echo "###                                             ###"
 echo "###               Enable services               ###"
 echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 systemctl enable bluetooth
-systemctl enable sddm 
 systemctl enable NetworkManager
 
 sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo -e "${CYAN}"
+echo -e "${YELLOW}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###      Install and configure systemd-boot     ###"
@@ -237,26 +222,27 @@ echo -e "${RESET}"
 
 bootctl install
 
+disk=$(<disk.txt)
 echo -e "timeout 0" >> /boot/loader/loader.conf
 echo -e "console-mode keep" >> /boot/loader/loader.conf
 echo -e "default arch.conf" >> /boot/loader/loader.conf
 
 echo -e "title Arch Linux" >> /boot/loader/entries/arch.conf
 echo -e "linux /vmlinuz-linux" >> /boot/loader/entries/arch.conf
-echo -e "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
+echo -e "initrd /intel-ucode.img" >> /boot/loader/entries/arch.conf
 echo -e "initrd /initramfs-linux.img" >> /boot/loader/entries/arch.conf
-echo -e "options root=/dev/sda3 rw quiet splash" >> /boot/loader/entries/arch.conf
+echo -e "options root=/dev/"$disk"3 rw quiet splash" >> /boot/loader/entries/arch.conf
 
 echo -e "title Arch Linux (fallback initramfs)" >> /boot/loader/entries/arch-fallback.conf
 echo -e "linux /vmlinuz-linux" >> /boot/loader/entries/arch-fallback.conf
-echo -e "initrd  /intel-ucode.img" >> /boot/loader/entries/arch-fallback.conf
+echo -e "initrd /intel-ucode.img" >> /boot/loader/entries/arch-fallback.conf
 echo -e "initrd /initramfs-linux-fallback.img" >> /boot/loader/entries/arch-fallback.conf
-echo -e "options root=/dev/sda3 rw quiet splash" >> /boot/loader/entries/arch-fallback.conf
+echo -e "options root=/dev/"$disk"3 rw quiet splash" >> /boot/loader/entries/arch-fallback.conf
 sleep 20
 ###---------------------------------------------------------
 
 clear
-echo -e "${CYAN}"
+echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###   Copy remaining files to user directory    ###"
