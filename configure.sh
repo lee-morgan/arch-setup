@@ -245,10 +245,13 @@ clear
 echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
-echo "###   Copy remaining files to user directory    ###"
+echo "###   Creating temporary .profile and .bashrc   ###"
 echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
+
+echo "[[ -f /archinstaller/run-once.sh ]] && /archinstaller/run-once.sh" > /home/$username/.profile
+echo "[[ -f ~/.bashrc ]] && /. .bashrc" >> /home/$username/.profile
 
 sleep $timeout
 ###---------------------------------------------------------
