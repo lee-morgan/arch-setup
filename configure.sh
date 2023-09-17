@@ -115,7 +115,7 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-reflector --country "GB,FR,DE" --latest 100 --protocol https --sort rate --save /etc/pacman.d/mirrorlist 
+#reflector --country "GB,FR,DE" --latest 100 --protocol https --sort rate --save /etc/pacman.d/mirrorlist 
 sleep $timeout
 ###---------------------------------------------------------
 
