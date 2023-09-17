@@ -133,9 +133,9 @@ read -p 'Press ENTER when ready to continue...' pause
 
 mkdir -p /home/$username/repos
 cd /home/$username/repos
-git clone https://aur.archlinux.org/yay-git.git 
+git clone https://aur.archlinux.org/yay-bin.git 
 chown -R $username:$username yay-git
-sudo -i -u $username bash -c "cd /home/$username/repos/yay-git && makepkg -si"
+sudo -i -u $username bash -c "cd /home/$username/repos/yay-bin && makepkg -si"
 cd /archinstaller
 sleep $timeout
 
@@ -177,6 +177,10 @@ echo -e "${RESET}"
 
 comm -12 <(pacman -Slq | sort) <(sort packages.txt) > pacman-packages.txt
 comm -23 <(sort packages.txt) <(pacman -Slq | sort) > aur-packages.txt
+echo "pacman packages: "
+echo $(awk '{print $1}' /archinstaller/pacman-packages.txt)
+echo "aur packages: "
+echo $(awk '{print $1}' /archinstaller/aur-packages.txt)
 sleep $timeout
 ###---------------------------------------------------------
 
