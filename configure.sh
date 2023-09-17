@@ -115,7 +115,7 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-#reflector --country "GB,FR,DE" --latest 100 --protocol https --sort rate --save /etc/pacman.d/mirrorlist 
+#reflector --latest 100 --protocol https --sort rate --save /etc/pacman.d/mirrorlist 
 sleep $timeout
 ###---------------------------------------------------------
 
@@ -130,10 +130,7 @@ echo -e "${RESET}"
 
 echo "This section requires user intervention"
 read -p 'Press ENTER when ready to continue...' pause
-# Need some more testing on this section
-# I can do everything but run makepkg as root 
-# I'll re-run and check all paths are setup 
-# and change permissions on yay directory
+
 mkdir -p /home/$username/repos
 cd /home/$username/repos
 git clone https://aur.archlinux.org/yay-git.git 
