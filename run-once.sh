@@ -14,17 +14,33 @@ clear
 echo -e "${PURPLE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
+echo "###                  Setup yay                  ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
+echo -e "${RESET}"
+
+mkdir -p $HOME/repos
+cd $HOME/repos
+git clone https://aur.archlinux.org/yay-bin.git 
+cd $HOME/repos/yay-bin 
+makepkg -si
+sleep $timeout
+
+clear
+echo -e "${CYAN}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
 echo "###            Install yay packages             ###"
 echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-yay --needed -S $(awk '{print $1}' /archinstaller/aur-packages.txt) | tee -a ~/.setup.log
+yay --needed -S $(awk '{print $1}' /archinstaller/aur-packages.txt) 
 sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo -e "${CYAN}"
+echo -e "${GREEN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###            Install pita packages            ###"
@@ -36,7 +52,7 @@ echo -e "${RESET}"
 sudo pacman --needed -S $(awk '{print $1}' /archinstaller/pita-packages.txt)
 
 clear
-echo -e "${GREEN}"
+echo -e "${YELLOW}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###             Enable user services            ###"
@@ -50,7 +66,7 @@ systemctl --user enable --now wireplumber
 sudo systemctl enable sddm 
 
 clear 
-echo -e "${YELLOW}"
+echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###                Clone dotfiles               ###"
@@ -58,8 +74,13 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
+git clone --bare https://github.com/lee-morgan/dotfiles-git.git $HOME/dotfiles-git
+alias dtf='/usr/bin/git --git-dir=$HOME/dotfiles-git/ --work-tree=$HOME'
+dtf checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} rm {}
+dtf checkout 
+
 clear 
-echo -e "${BLUE}"
+echo -e "${PURPLE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###            Cleanup setup scripts            ###"
@@ -67,6 +88,6 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-echo "$0"
+sudo rm -rf /archinstaller
 
 ###---------------------------------------------------------

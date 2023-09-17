@@ -123,26 +123,6 @@ clear
 echo -e "${GREEN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
-echo "###                  Setup yay                  ###"
-echo "###                                             ###"
-echo "###---------------------------------------------###"
-echo -e "${RESET}"
-
-echo "This section requires user intervention"
-read -p 'Press ENTER when ready to continue...' pause
-
-mkdir -p /home/$username/repos
-cd /home/$username/repos
-git clone https://aur.archlinux.org/yay-bin.git 
-chown -R $username:$username yay-git
-sudo -i -u $username bash -c "cd /home/$username/repos/yay-bin && makepkg -si"
-cd /archinstaller
-sleep $timeout
-
-clear
-echo -e "${YELLOW}"
-echo "###---------------------------------------------###"
-echo "###                                             ###"
 echo "###            Patching pacman.conf             ###"
 echo "###                                             ###"
 echo "###---------------------------------------------###"
@@ -154,7 +134,7 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo -e "${BLUE}"
+echo -e "${YELLOW}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###            Updating package cache           ###"
@@ -167,7 +147,7 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo -e "${PURPLE}"
+echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###            Creating package lists           ###"
@@ -185,7 +165,7 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo -e "${CYAN}"
+echo -e "${PURPLE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###        Installing required packages         ###"
@@ -198,7 +178,7 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo -e "${GREEN}"
+echo -e "${CYAN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###               Enable services               ###"
@@ -213,7 +193,7 @@ sleep $timeout
 ###---------------------------------------------------------
 
 clear
-echo -e "${YELLOW}"
+echo -e "${GREEN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###      Install and configure systemd-boot     ###"
@@ -243,7 +223,7 @@ sleep 20
 ###---------------------------------------------------------
 
 clear
-echo -e "${BLUE}"
+echo -e "${YELLOW}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###   Creating temporary .profile and .bashrc   ###"
@@ -254,5 +234,7 @@ echo -e "${RESET}"
 echo "[[ -f /archinstaller/run-once.sh ]] && bash -i /archinstaller/run-once.sh" >> /home/$username/.bash_profile
 echo "[[ -f ~/.bashrc ]] && . ~/.bashrc" >> /home/$username/.profile
 
+umount -R /mnt
+reboot
 sleep $timeout
 ###---------------------------------------------------------
