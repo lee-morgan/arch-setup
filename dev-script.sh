@@ -1,9 +1,9 @@
 #!/bin/bash
 # This is just an testbed script used to test various sections of code
 
-pacman -Qet > packages.txt
+#pacman -Qet > packages.txt
 # Sort installed packages into the correct package manager / helper files
-comm -12 <(pacman -Slq | sort) <(sort packages.txt) | sort -r > pacman-packages.txt
+comm -12 <(pacman -Slq | sort) <(sort packages.txt) > pacman-packages.txt
 comm -23 <(sort packages.txt) <(pacman -Slq | sort) > aur-packages.txt
 #sudo pacman --noconfirm --needed --noprogressbar -S $(awk '{print $1}' ./pacman-packages.txt)
 #yay --noconfirm --needed --noprogressbar -S $(awk '{print $1}' ./aur-packages.txt)
