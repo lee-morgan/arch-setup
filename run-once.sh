@@ -19,7 +19,7 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-yay --noconfirm --needed -S $(awk '{print $1}' /archinstaller/aur-packages.txt)
+yay --needed -S $(awk '{print $1}' /archinstaller/aur-packages.txt) | tee -a ~/.setup.log
 sleep $timeout
 ###---------------------------------------------------------
 
@@ -32,8 +32,8 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-# Thesea are all packages that require confirming conflicts.
-'yes' | sudo pacman --needed -S $(awk '{print $1}' /archinstaller/pita-packages.txt)
+# These are all packages that require confirming conflicts.
+sudo pacman --needed -S $(awk '{print $1}' /archinstaller/pita-packages.txt)
 
 clear
 echo -e "${GREEN}"
@@ -47,7 +47,7 @@ echo -e "${RESET}"
 systemctl --user enable --now pipewire  
 systemctl --user enable --now pipewire-pulse 
 systemctl --user enable --now wireplumber
-systemctl enable sddm 
+sudo systemctl enable sddm 
 
 clear 
 echo -e "${YELLOW}"

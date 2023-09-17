@@ -121,7 +121,7 @@ cp configure.sh /mnt/archinstaller/
 cp packages.txt /mnt/archinstaller/
 cp disk /mnt/archinstaller/
 cp pita-packages.txt /mnt/archinstaller/
-cd run-once.sh /mnt/archinstaller/
+cp run-once.sh /mnt/archinstaller/
 ###---------------------------------------------------------
 
 clear

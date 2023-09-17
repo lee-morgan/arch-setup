@@ -248,7 +248,7 @@ echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 echo "[[ -f /archinstaller/run-once.sh ]] && bash -i /archinstaller/run-once.sh" > /home/$username/.profile
-echo "[[ -f ~/.bashrc ]] && /. .bashrc" >> /home/$username/.profile
+echo "[[ -f ~/.bashrc ]] && . ~/.bashrc" >> /home/$username/.profile
 
 sleep $timeout
 ###---------------------------------------------------------
