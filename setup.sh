@@ -79,9 +79,8 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-### Not really required.
-### just thought it may look nice. :-)
 sed -i 's/#Color/Color/g' /etc/pacman.conf
+sed -i 's/#Verbose/Verbose/g' /etc/pacman.conf
 ###---------------------------------------------------------
 
 clear
@@ -121,6 +120,7 @@ mkdir /mnt/archinstaller
 cp configure.sh /mnt/archinstaller/
 cp packages.txt /mnt/archinstaller/
 cp disk /mnt/archinstaller/
+cp pita-packages.txt /mnt/archinstaller/
 cd run-once.sh /mnt/archinstaller
 ###---------------------------------------------------------
 

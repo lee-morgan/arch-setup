@@ -27,6 +27,18 @@ clear
 echo -e "${CYAN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
+echo "###            Install pita packages            ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
+echo -e "${RESET}"
+
+# Thesea are all packages that require confirming conflicts.
+'yes' | sudo pacman --needed -S $(awk '{print $1}' /archinstaller/pita-packages.txt)
+
+clear
+echo -e "${GREEN}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
 echo "###             Enable user services            ###"
 echo "###                                             ###"
 echo "###---------------------------------------------###"
@@ -34,11 +46,20 @@ echo -e "${RESET}"
 
 systemctl --user enable --now pipewire  
 systemctl --user enable --now pipewire-pulse 
-systemctl --user enable --now pipewire-media-session
+systemctl --user enable --now wireplumber
 systemctl enable sddm 
 
-clear # Need to work out which color we're using.
-echo -e "${CYAN}"
+clear 
+echo -e "${YELLOW}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###                Clone dotfiles               ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
+echo -e "${RESET}"
+
+clear 
+echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###            Cleanup setup scripts            ###"

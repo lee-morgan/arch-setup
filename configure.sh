@@ -115,8 +115,7 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-# I've had problems with this so may leave it out
-#reflector --country "GB,FR,DE," --protocol https --sort rate --save /etc/pacman.d/mirrorlist 
+reflector --country "GB,FR,DE" --latest 100 --protocol https --sort rate --save /etc/pacman.d/mirrorlist 
 sleep $timeout
 ###---------------------------------------------------------
 
@@ -153,6 +152,7 @@ echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 sed -i 's/#Color/Color/g' /etc/pacman.conf
+sed -i 's/#Verbose/Verbose/g' /etc/pacman.conf
 sleep $timeout
 ###---------------------------------------------------------
 
