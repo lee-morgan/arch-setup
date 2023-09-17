@@ -155,12 +155,13 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
+cd /archinstaller/
 comm -12 <(pacman -Slq | sort) <(sort packages.txt) > pacman-packages.txt
 comm -23 <(sort packages.txt) <(pacman -Slq | sort) > aur-packages.txt
 echo "pacman packages: "
-echo $(awk '{print $1}' /archinstaller/pacman-packages.txt)
+echo $(awk '{print $1}' pacman-packages.txt)
 echo "aur packages: "
-echo $(awk '{print $1}' /archinstaller/aur-packages.txt)
+echo $(awk '{print $1}' aur-packages.txt)
 sleep $timeout
 ###---------------------------------------------------------
 
