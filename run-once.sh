@@ -8,7 +8,7 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m' 
 RESET='\033[0m'
 
-timeout=2
+timeout=1
 
 clear
 echo -e "${PURPLE}"
@@ -76,9 +76,9 @@ echo -e "${RESET}"
 
 git clone --bare https://github.com/lee-morgan/dotfiles-git.git $HOME/dotfiles-git
 alias dtf='/usr/bin/git --git-dir=$HOME/dotfiles-git/ --work-tree=$HOME'
-dtf checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} rm {}
 dtf checkout 
 
+read -p "Pause..." pause
 clear 
 echo -e "${PURPLE}"
 echo "###---------------------------------------------###"

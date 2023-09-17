@@ -73,7 +73,6 @@ wl-clipboard
 wlogout-git
 wofi
 xdg-desktop-portal-hyprland
-xdg-user-dirs
 xdg-utils
 yay
 zram-generator

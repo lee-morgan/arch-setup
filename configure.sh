@@ -8,7 +8,7 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m' 
 RESET='\033[0m'
 
-timeout=10
+timeout=1
 zoneinfo="Europe/London"
 username="lee"
 
@@ -26,7 +26,6 @@ hwclock --systohc
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${CYAN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -42,7 +41,6 @@ echo "KEYMAP=uk"  >> /etc/vconsole.conf
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${GREEN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -60,7 +58,6 @@ echo -e "127.0.1.1\t$hostname.local\t$hostname" >> /etc/hosts
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${YELLOW}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -74,7 +71,6 @@ usermod -aG wheel,audio,video,optical,storage $username
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -91,7 +87,6 @@ passwd $username
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${PURPLE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -106,7 +101,6 @@ sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${CYAN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -119,7 +113,6 @@ echo -e "${RESET}"
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${GREEN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -133,7 +126,6 @@ sed -i 's/#Verbose/Verbose/g' /etc/pacman.conf
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${YELLOW}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -146,7 +138,6 @@ pacman -Syy
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -178,7 +169,6 @@ pacman --noconfirm --needed -S $(awk '{print $1}' /archinstaller/pacman-packages
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${CYAN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -193,7 +183,6 @@ systemctl enable NetworkManager
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${GREEN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -223,7 +212,6 @@ echo -e "options root=/dev/"$disk"3 rw quiet splash" >> /boot/loader/entries/arc
 sleep 20
 ###---------------------------------------------------------
 
-clear
 echo -e "${YELLOW}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -233,9 +221,7 @@ echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 echo "[[ -f /archinstaller/run-once.sh ]] && bash -i /archinstaller/run-once.sh" >> /home/$username/.bash_profile
-echo "[[ -f ~/.bashrc ]] && . ~/.bashrc" >> /home/$username/.profile
 
-umount -R /mnt
-reboot
-sleep $timeout
+echo "Don't forget to run 'umount -R /mnt' and reboot the system."
+echo "Setup will continue when you next login."
 ###---------------------------------------------------------
