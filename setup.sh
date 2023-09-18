@@ -126,6 +126,6 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-arch-chroot /mnt ./archinstaller/configure.sh
+arch-chroot /mnt ./archinstaller/configure.sh && umount -R /mnt && reboot
 sleep $timeout 
 ###---------------------------------------------------------
