@@ -49,6 +49,7 @@ polkit-kde-agent
 python
 python-pip
 python-psutil
+pywal
 qemu-desktop
 qt5-wayland
 qt6-wayland
@@ -62,6 +63,9 @@ swayidle-git
 swww
 sxiv
 ttf-dejavu
+ttf-fira-code
+ttf-fira-sans
+ttf-firacode-nerd
 ttf-font-awesome
 ttf-jetbrains-mono-nerd
 tty-clock
