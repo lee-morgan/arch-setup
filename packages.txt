@@ -28,6 +28,7 @@ imagemagick
 intel-ucode
 jq
 kitty
+libvirt
 libnotify
 lshw
 nano
