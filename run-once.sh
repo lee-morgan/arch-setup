@@ -27,7 +27,6 @@ makepkg -si
 cd $HOME
 sleep $timeout
 
-clear
 echo -e "${CYAN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -40,7 +39,6 @@ yay --needed -S $(awk '{print $1}' /archinstaller/aur-packages.txt)
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${GREEN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -52,7 +50,6 @@ echo -e "${RESET}"
 # These are all packages that require confirming conflicts.
 sudo pacman --needed -S $(awk '{print $1}' /archinstaller/pita-packages.txt)
 
-clear 
 echo -e "${YELLOW}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -68,7 +65,6 @@ git clone --bare https://github.com/lee-morgan/dotfiles-git.git $HOME/dotfiles-g
 alias dtf='/usr/bin/git --git-dir=$HOME/dotfiles-git/ --work-tree=$HOME'
 dtf checkout 
 
-clear
 echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -84,7 +80,7 @@ sudo systemctl enable sddm
 sudo ststemctl enable libvirtd
 sudo usermod -aG libvirt $USER
 
-clear 
+
 echo -e "${PURPLE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -94,6 +90,7 @@ echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 sudo rm -rf /archinstaller 
+echo "A log of the whole setup has been saved to $HOME/setup.log"
 echo "The system will reboot in 5 seconds..."
 sleep 5
 reboot
