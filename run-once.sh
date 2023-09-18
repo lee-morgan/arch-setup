@@ -24,6 +24,7 @@ cd $HOME/repos
 git clone https://aur.archlinux.org/yay-bin.git 
 cd $HOME/repos/yay-bin 
 makepkg -si
+cd $HOME
 sleep $timeout
 
 clear
@@ -60,7 +61,7 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-rm -rf .bashrc .bash_profile .bash_logout
+rm -rf $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout
 git clone --bare https://github.com/lee-morgan/dotfiles-git.git $HOME/dotfiles-git
 alias dtf='/usr/bin/git --git-dir=$HOME/dotfiles-git/ --work-tree=$HOME'
 dtf checkout 
@@ -78,6 +79,8 @@ systemctl --user enable --now pipewire
 systemctl --user enable --now pipewire-pulse 
 systemctl --user enable --now wireplumber
 sudo systemctl enable sddm 
+sudo ststemctl enable libvirtd
+sudo usermod -aG libvirt $USER
 
 clear 
 echo -e "${PURPLE}"
