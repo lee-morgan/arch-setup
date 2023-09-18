@@ -61,6 +61,8 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
+cd $HOME # make sure that we're in the users home directory
+mkdir desktop documents downloads music pictures public templates videos
 rm -rf $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout
 git clone --bare https://github.com/lee-morgan/dotfiles-git.git $HOME/dotfiles-git
 alias dtf='/usr/bin/git --git-dir=$HOME/dotfiles-git/ --work-tree=$HOME'
@@ -91,6 +93,8 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-sudo rm -rf /archinstaller
-
+sudo rm -rf /archinstaller 
+echo "The system will reboot in 5 seconds..."
+sleep 5
+reboot
 ###---------------------------------------------------------
