@@ -38,6 +38,7 @@ network-manager-applet
 openssh
 openssl
 pamixer
+paru
 pcmanfm-gtk3
 pipewire
 pipewire-alsa
@@ -74,5 +75,4 @@ wlogout-git
 wofi
 xdg-desktop-portal-hyprland
 xdg-utils
-yay
 zram-generator

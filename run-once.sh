@@ -51,8 +51,22 @@ echo -e "${RESET}"
 # These are all packages that require confirming conflicts.
 sudo pacman --needed -S $(awk '{print $1}' /archinstaller/pita-packages.txt)
 
-clear
+clear 
 echo -e "${YELLOW}"
+echo "###---------------------------------------------###"
+echo "###                                             ###"
+echo "###                Clone dotfiles               ###"
+echo "###                                             ###"
+echo "###---------------------------------------------###"
+echo -e "${RESET}"
+
+rm -rf .bashrc .bash_profile .bash_logout
+git clone --bare https://github.com/lee-morgan/dotfiles-git.git $HOME/dotfiles-git
+alias dtf='/usr/bin/git --git-dir=$HOME/dotfiles-git/ --work-tree=$HOME'
+dtf checkout 
+
+clear
+echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
 echo "###             Enable user services            ###"
@@ -65,20 +79,6 @@ systemctl --user enable --now pipewire-pulse
 systemctl --user enable --now wireplumber
 sudo systemctl enable sddm 
 
-clear 
-echo -e "${BLUE}"
-echo "###---------------------------------------------###"
-echo "###                                             ###"
-echo "###                Clone dotfiles               ###"
-echo "###                                             ###"
-echo "###---------------------------------------------###"
-echo -e "${RESET}"
-
-git clone --bare https://github.com/lee-morgan/dotfiles-git.git $HOME/dotfiles-git
-alias dtf='/usr/bin/git --git-dir=$HOME/dotfiles-git/ --work-tree=$HOME'
-dtf checkout 
-
-read -p "Pause..." pause
 clear 
 echo -e "${PURPLE}"
 echo "###---------------------------------------------###"
