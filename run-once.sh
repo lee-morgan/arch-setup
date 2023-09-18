@@ -73,11 +73,11 @@ echo "###                                             ###"
 echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
-systemctl --user enable --now pipewire  
-systemctl --user enable --now pipewire-pulse 
-systemctl --user enable --now wireplumber
+systemctl --user enable pipewire  
+systemctl --user enable pipewire-pulse 
+systemctl --user enable wireplumber
 sudo systemctl enable sddm 
-sudo ststemctl enable libvirtd
+sudo systemctl enable libvirtd
 sudo usermod -aG libvirt $USER
 
 
@@ -90,7 +90,7 @@ echo "###---------------------------------------------###"
 echo -e "${RESET}"
 
 sudo rm -rf /archinstaller 
-echo "A log of the whole setup has been saved to $HOME/setup.log"
+# echo "A log of the whole setup has been saved to $HOME/setup.log"
 echo "The system will reboot in 5 seconds..."
 sleep 5
 reboot
