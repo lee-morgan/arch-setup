@@ -40,7 +40,6 @@ echo w) | fdisk /dev/$disk
 sleep $timeout
 ###---------------------------------------------------------
 
-clear
 echo -e "${YELLOW}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -55,7 +54,6 @@ mkfs.ext4 /dev/"$disk"3 # / (root)
 mkfs.ext4 /dev/"$disk"4 # /home
 ###---------------------------------------------------------
 
-clear
 echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -70,7 +68,6 @@ mount --mkdir /dev/"$disk"4 /mnt/home
 swapon /dev/"$disk"2 
 ###---------------------------------------------------------
 
-clear
 echo -e "${PURPLE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -83,7 +80,6 @@ sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#Verbose/Verbose/g' /etc/pacman.conf
 ###---------------------------------------------------------
 
-clear
 echo -e "${CYAN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -95,7 +91,6 @@ echo -e "${RESET}"
 pacstrap -K /mnt base linux linux-firmware base-devel git intel-ucode linux-headers reflector nano openssh awk
 ###----------------------------------------------------------
 
-clear
 echo -e "${GREEN}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -107,7 +102,6 @@ echo -e "${RESET}"
 genfstab -U /mnt >> /mnt/etc/fstab
 ###---------------------------------------------------------
 
-clear
 echo -e "${YELLOW}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
@@ -124,7 +118,6 @@ cp pita-packages.txt /mnt/archinstaller/
 cp run-once.sh /mnt/archinstaller/
 ###---------------------------------------------------------
 
-clear
 echo -e "${BLUE}"
 echo "###---------------------------------------------###"
 echo "###                                             ###"
